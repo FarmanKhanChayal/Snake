@@ -8,13 +8,19 @@ public class Snake : MonoBehaviour
     private float GridMoveTimer;
     private float GridMoveTimerMax;
     private Vector2Int GridMoveDirection;
+    private LevelGrid levelGrid;
+
+    public void SetUp(LevelGrid levelGrid)
+    {
+        this.levelGrid = levelGrid;
+    }
 
     private void Awake()
     {
         gridPosition = new Vector2Int(10,10);
-        GridMoveTimerMax = 0.6f;
+        GridMoveTimerMax = 0.4f;
         GridMoveTimer = GridMoveTimerMax;
-        GridMoveDirection = new Vector2Int(1, 0);
+        GridMoveDirection = new Vector2Int(2, 0);
     }
 
     private void Update()
@@ -27,7 +33,7 @@ public class Snake : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (GridMoveDirection.y != -1)
+            if (GridMoveDirection.y != -2)
             {
                 GridMoveDirection.x = 0;
                 GridMoveDirection.y = +2;
@@ -37,7 +43,7 @@ public class Snake : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (GridMoveDirection.y != +1)
+            if (GridMoveDirection.y != +2)
             {
                 GridMoveDirection.x = 0;
                 GridMoveDirection.y = -2;
@@ -46,7 +52,7 @@ public class Snake : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (GridMoveDirection.x != -1)
+            if (GridMoveDirection.x != -2)
             {
                 GridMoveDirection.x = +2;
                 GridMoveDirection.y = 0;
@@ -55,7 +61,7 @@ public class Snake : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (GridMoveDirection.x != +1)
+            if (GridMoveDirection.x != +2)
             {
                 GridMoveDirection.x = -2;
                 GridMoveDirection.y = 0;
@@ -73,6 +79,8 @@ public class Snake : MonoBehaviour
 
             transform.position = new Vector3(gridPosition.x, gridPosition.y);
             transform.eulerAngles = new Vector3(0,0,GetAngleFormVector(GridMoveDirection)+90);
+
+            //levelGrid.SnakeMoved(gridPosition);
         }
     }
 
@@ -81,5 +89,19 @@ public class Snake : MonoBehaviour
         float n = Mathf.Atan2(dir.y,dir.x)*Mathf.Rad2Deg;
         if (n < 0) n += 360;
         return n;
+    }
+
+    public Vector2Int GetSnakeGridPosition()
+    {
+        return gridPosition;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.transform.name == "Food")
+        {
+            Destroy(collision.gameObject);
+            levelGrid.SpawnFood();
+        }
     }
 }

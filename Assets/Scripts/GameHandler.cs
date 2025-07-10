@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class GameHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private Snake Snake;
+    private LevelGrid LevelGrid;
     void Start()
     {
         Debug.Log("GameHandler Start");
-        //GameObject SnakeHeadGameObject = new GameObject();
-        //SpriteRenderer SnakeSprteRenderer = SnakeHeadGameObject.AddComponent<SpriteRenderer>();
-        //SnakeSprteRenderer.sprite = GameAssets.Instance.SnakeHeadSprite;
-        //SnakeHeadGameObject.transform.localScale = new Vector3(20, 20, 0);
+        LevelGrid = new LevelGrid(37, 37);
+
+        Snake.SetUp(LevelGrid);
+        LevelGrid.SetUp(Snake);
     }
 
     // Update is called once per frame
