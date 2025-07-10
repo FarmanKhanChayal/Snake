@@ -19,14 +19,20 @@ public class Snake : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+       HandleInput();
+       HandleGridMovement();
+    }
+
+    private void HandleInput()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if(GridMoveDirection.y != -1)
+            if (GridMoveDirection.y != -1)
             {
                 GridMoveDirection.x = 0;
                 GridMoveDirection.y = +1;
             }
-            
+
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -55,9 +61,12 @@ public class Snake : MonoBehaviour
                 GridMoveDirection.y = 0;
             }
         }
+    }
 
+    private void HandleGridMovement()
+    {
         GridMoveTimer += Time.deltaTime;
-        if(GridMoveTimer >= GridMoveTimerMax)
+        if (GridMoveTimer >= GridMoveTimerMax)
         {
             gridPosition += GridMoveDirection;
             GridMoveTimer -= GridMoveTimerMax;
