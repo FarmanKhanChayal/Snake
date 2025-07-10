@@ -12,7 +12,7 @@ public class Snake : MonoBehaviour
     private void Awake()
     {
         gridPosition = new Vector2Int(10,10);
-        GridMoveTimerMax = 1f;
+        GridMoveTimerMax = 0.6f;
         GridMoveTimer = GridMoveTimerMax;
         GridMoveDirection = new Vector2Int(1, 0);
     }
@@ -30,7 +30,7 @@ public class Snake : MonoBehaviour
             if (GridMoveDirection.y != -1)
             {
                 GridMoveDirection.x = 0;
-                GridMoveDirection.y = +1;
+                GridMoveDirection.y = +2;
             }
 
         }
@@ -40,7 +40,7 @@ public class Snake : MonoBehaviour
             if (GridMoveDirection.y != +1)
             {
                 GridMoveDirection.x = 0;
-                GridMoveDirection.y = -1;
+                GridMoveDirection.y = -2;
             }
         }
 
@@ -48,7 +48,7 @@ public class Snake : MonoBehaviour
         {
             if (GridMoveDirection.x != -1)
             {
-                GridMoveDirection.x = +1;
+                GridMoveDirection.x = +2;
                 GridMoveDirection.y = 0;
             }
         }
@@ -57,7 +57,7 @@ public class Snake : MonoBehaviour
         {
             if (GridMoveDirection.x != +1)
             {
-                GridMoveDirection.x = -1;
+                GridMoveDirection.x = -2;
                 GridMoveDirection.y = 0;
             }
         }
@@ -70,8 +70,16 @@ public class Snake : MonoBehaviour
         {
             gridPosition += GridMoveDirection;
             GridMoveTimer -= GridMoveTimerMax;
-        }
 
-        transform.position = new Vector3(gridPosition.x, gridPosition.y);
+            transform.position = new Vector3(gridPosition.x, gridPosition.y);
+            transform.eulerAngles = new Vector3(0,0,GetAngleFormVector(GridMoveDirection)+90);
+        }
+    }
+
+    private float GetAngleFormVector(Vector2Int dir)
+    {
+        float n = Mathf.Atan2(dir.y,dir.x)*Mathf.Rad2Deg;
+        if (n < 0) n += 360;
+        return n;
     }
 }
