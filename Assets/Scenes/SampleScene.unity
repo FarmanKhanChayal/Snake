@@ -472,7 +472,7 @@ Transform:
   m_GameObject: {fileID: 1620151303}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.7, y: 22.8, z: 0}
+  m_LocalPosition: {x: -1, y: 1.3, z: 0}
   m_LocalScale: {x: 30, y: 30, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -490,6 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f33df0e63734fe342b68b6b29f1c285a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SnakeBodyPrefab: {fileID: 1305691274883017171, guid: 3dd220007f72ceb41bdad2bef73e896a, type: 3}
 --- !u!61 &1620151307
 BoxCollider2D:
   m_ObjectHideFlags: 0
